@@ -32,9 +32,12 @@ WMSDR enhances the rig you already own — it does not replace it.
 
 ---
 
-## Contact
+## Équipe · Team
 
-Gabi Mihaila, **YO4WM**
+| | 🇫🇷 | 🇬🇧 |
+|---|---|---|
+| Gabi Mihaila, **YO4WM** | conception et développement | design and development |
+| Vladimir Stephan, **F4FNA** | co-conception, composants, contact en France | co-design, components, contact in France |
 
 ---
 

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>WMSDR — flyer</title>
+<style>
+  /* A4, printed double-sided: page 1 French, page 2 English. Print from the browser with
+     "Background graphics" ON and margins "None" — the page sets its own. */
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #13213a;          /* the radio's navy */
+    --muted: #4a5873;
+    --accent: #0b8fb3;       /* the cyan of the button rows, darkened for paper */
+    --amber: #e8a317;        /* the VFO digits */
+    --rule: #d5dce6;
+    --paper: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #8a93a3; }
+  body { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: var(--ink); }
+
+  .page {
+    width: 210mm; height: 297mm; margin: 10mm auto; padding: 14mm 15mm 12mm;
+    background: var(--paper); display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+  }
+  @media print {
+    html, body { background: var(--paper); }
+    .page { margin: 0; box-shadow: none; page-break-after: always; break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+  }
+
+  header { display: flex; align-items: flex-end; justify-content: space-between;
+           border-bottom: 1.2mm solid var(--ink); padding-bottom: 3mm; }
+  .brand { font-size: 30pt; font-weight: 800; letter-spacing: .04em; line-height: 1; }
+  .brand span { color: var(--amber); }
+  .lang { font-size: 9pt; font-weight: 700; letter-spacing: .12em; color: var(--muted);
+          text-transform: uppercase; }
+
+  .pitch { font-size: 15pt; font-weight: 700; line-height: 1.25; margin: 6mm 0 2mm; }
+  .sub   { font-size: 11pt; color: var(--muted); margin: 0 0 5mm; line-height: 1.4; }
+  .sub b { color: var(--ink); }
+
+  .hero { width: 100%; height: 98mm; object-fit: cover; object-position: center 40%;
+          border-radius: 2mm; display: block; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 8mm; margin: 6mm 0 0; }
+  .feat { border-left: 1mm solid var(--accent); padding: .5mm 0 .5mm 3mm; }
+  .feat h3 { margin: 0 0 .8mm; font-size: 10.5pt; }
+  .feat p  { margin: 0; font-size: 9.5pt; color: var(--muted); line-height: 1.35; }
+
+  .rig { margin: 6mm 0 0; font-size: 10pt; color: var(--muted); }
+  .rig b { color: var(--ink); }
+
+  footer { margin-top: auto; display: grid; grid-template-columns: 1fr auto; gap: 8mm;
+           align-items: end; border-top: .4mm solid var(--rule); padding-top: 5mm; }
+  .team h4 { margin: 0 0 2mm; font-size: 9pt; letter-spacing: .12em; text-transform: uppercase;
+             color: var(--muted); }
+  .person { margin: 0 0 2mm; font-size: 10.5pt; line-height: 1.3; }
+  .person b { font-size: 12pt; }
+  .person .call { color: var(--accent); font-weight: 800; letter-spacing: .03em; }
+  .person small { display: block; color: var(--muted); font-size: 9pt; }
+
+  .qr { text-align: center; }
+  .qr img { width: 34mm; height: 34mm; display: block; margin: 0 auto 1.5mm; }
+  .qr .cta { font-size: 9.5pt; font-weight: 700; }
+  .qr .url { font-size: 8.5pt; color: var(--muted); }
+  .lic { margin-top: 3mm; font-size: 7.5pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ============================== FRANÇAIS ============================== -->
+<section class="page" lang="fr">
+  <header>
+    <div class="brand">WM<span>SDR</span></div>
+    <div class="lang">Français · English overleaf</div>
+  </header>
+
+  <p class="pitch">Panadapter, récepteur DSP et tête de commande pour votre transceiver QRP.</p>
+  <p class="sub">Le WMSDR <b>améliore le poste que vous possédez déjà</b> — il ne le remplace pas.
+    Le poste garde la HF, le filtrage et l'émission ; le WMSDR ajoute l'écran, le traitement
+    numérique et les décodeurs.</p>
+
+  <img class="hero" src="../images/wmsdr-front-rss.jpg" alt="Face avant du WMSDR">
+
+  <div class="cols">
+    <div class="feat"><h3>Spectre et cascade</h3>
+      <p>Touchez un signal pour vous y accorder. Zoom, curseur, S-mètre calibré.</p></div>
+    <div class="feat"><h3>Traitement DSP</h3>
+      <p>Réduction de bruit, notch, noise blanker, AGC, égaliseur, équilibrage I/Q.</p></div>
+    <div class="feat"><h3>Décodeurs intégrés</h3>
+      <p>CW, RTTY, PSK31/63, FT8, SSTV et cartes météo WeFax — sans ordinateur.</p></div>
+    <div class="feat"><h3>Pages web compagnon</h3>
+      <p>Images, liste FT8 et émission CW depuis le téléphone ou le PC.</p></div>
+    <div class="feat"><h3>Commande du poste</h3>
+      <p>CAT, huit boutons configurables, écran tactile 800×480.</p></div>
+    <div class="feat"><h3>Entièrement documenté</h3>
+      <p>Manuel complet en français et en anglais, à lire en ligne ou en PDF.</p></div>
+  </div>
+
+  <p class="rig">Poste de référence : <b>uSDX triband</b> (WB2CBA) — tout transceiver QRP
+    fournissant I/Q et CAT peut convenir.</p>
+
+  <footer>
+    <div class="team">
+      <h4>L'équipe</h4>
+      <p class="person"><b>Gabi Mihaila</b> <span class="call">YO4WM</span>
+        <small>conception et développement</small></p>
+      <p class="person"><b>Vladimir Stephan</b> <span class="call">F4FNA</span>
+        <small>co-conception, composants, contact en France</small></p>
+    </div>
+    <div class="qr">
+      <img src="qr-wmsdr-docs.svg" alt="QR code github.com/gabs4/wmsdr-docs">
+      <div class="cta">Manuels et photos</div>
+      <div class="url">github.com/gabs4/wmsdr-docs</div>
+    </div>
+  </footer>
+  <div class="lic">Documentation sous licence CC BY-NC 4.0 · © 2026 YO4WM</div>
+</section>
+
+<!-- ============================== ENGLISH ============================== -->
+<section class="page" lang="en">
+  <header>
+    <div class="brand">WM<span>SDR</span></div>
+    <div class="lang">English · Version française au recto</div>
+  </header>
+
+  <p class="pitch">Panadapter, DSP receiver and control head for your QRP transceiver.</p>
+  <p class="sub">WMSDR <b>enhances the rig you already own</b> — it does not replace it.
+    The rig keeps RF, filtering and transmit; WMSDR adds the display, the signal processing
+    and the decoders.</p>
+
+  <img class="hero" src="../images/wmsdr-front-rss.jpg" alt="WMSDR front panel">
+
+  <div class="cols">
+    <div class="feat"><h3>Spectrum and waterfall</h3>
+      <p>Tap a signal to tune to it. Zoom, cursor readout, calibrated S-meter.</p></div>
+    <div class="feat"><h3>DSP processing</h3>
+      <p>Noise reduction, notch, noise blanker, AGC, equaliser, I/Q balance.</p></div>
+    <div class="feat"><h3>Built-in decoders</h3>
+      <p>CW, RTTY, PSK31/63, FT8, SSTV and WeFax weather charts — no computer needed.</p></div>
+    <div class="feat"><h3>Companion web pages</h3>
+      <p>Pictures, FT8 list and CW transmit from your phone or PC.</p></div>
+    <div class="feat"><h3>Rig control</h3>
+      <p>CAT, eight assignable knobs, 800×480 touch screen.</p></div>
+    <div class="feat"><h3>Fully documented</h3>
+      <p>Full manual in English and French, read online or as PDF.</p></div>
+  </div>
+
+  <p class="rig">Reference rig: <b>uSDX triband</b> (WB2CBA) — any QRP transceiver that
+    provides I/Q and CAT may suit.</p>
+
+  <footer>
+    <div class="team">
+      <h4>The team</h4>
+      <p class="person"><b>Gabi Mihaila</b> <span class="call">YO4WM</span>
+        <small>design and development</small></p>
+      <p class="person"><b>Vladimir Stephan</b> <span class="call">F4FNA</span>
+        <small>co-design, components, contact in France</small></p>
+    </div>
+    <div class="qr">
+      <img src="qr-wmsdr-docs.svg" alt="QR code github.com/gabs4/wmsdr-docs">
+      <div class="cta">Manuals and photos</div>
+      <div class="url">github.com/gabs4/wmsdr-docs</div>
+    </div>
+  </footer>
+  <div class="lic">Documentation licensed CC BY-NC 4.0 · © 2026 YO4WM</div>
+</section>
+
+</body>
+</html>
