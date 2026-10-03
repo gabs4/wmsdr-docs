@@ -695,14 +695,14 @@ The self-test runs slower than real time; that does not change the result.
 
 ---
 
-### 7.4 Companion web pages (xiao-dx.local)
+### 7.4 Companion web pages (wmsdr-dx.local)
 
 The radio has no storage and no keyboard. The companion XIAO — the board that already brings UTC
 and DX spots over ESP-NOW — receives the decoded WeFax charts and FT8 decodes, keeps the latest
 ones in its memory and serves them to any browser on your Wi-Fi; it also carries CW typed in the
 browser to the radio. Saving happens in the browser, on your phone or PC.
 
-Open **`http://xiao-dx.local/`**:
+Open **`http://wmsdr-dx.local/`**:
 
 - **Home** is a dashboard with live tiles — UTC, FT8 (decodes in the last slot), Pictures, DX
   cluster, and the companion's Wi-Fi signal and uptime. Tap a tile to open its page.
@@ -712,7 +712,7 @@ Open **`http://xiao-dx.local/`**:
   that browser.
 - **Settings** holds the Wi-Fi, **CALLSIGN** and DX-cluster fields. Saving reboots the
   companion; leaving the password field empty keeps the stored one. In first-time setup (the
-  `XIAO-DX-Config` access point, 192.168.4.1) the settings form opens directly.
+  `WMSDR-DX-Config` access point, 192.168.4.1) the settings form opens directly.
 
 The live pages show **LIVE** while connected and reconnect by themselves.
 
@@ -792,7 +792,7 @@ With live keying off, type a whole line and press **Enter** or **Send**.
 - **FT8 shows `N decoded, M received` in red often:** the ESP-NOW link is losing frames — move the
   companion closer or improve its antenna.
 - **The companion cannot join the Wi-Fi at all** — it sees networks in a scan but connects to
-  none, not even its own `XIAO-DX-Config` access point: check its **antenna** first (the small
+  none, not even its own `WMSDR-DX-Config` access point: check its **antenna** first (the small
   snap-on connector comes loose easily), then its USB power. This happened on the prototype; a
   better antenna cured it.
 - **Transmit shows RADIO NOT HEARD** after the router changed Wi-Fi channel: current companion
@@ -1332,7 +1332,7 @@ persisted.
 1. Check the **E** icon is lit — FT8 needs the companion's UTC.
 2. Tune **14.074 MHz USB** (or another FT8 frequency, §7.3).
 3. **SSTV** button → MODE **FT8**. Decodes appear after the first full 15 s slot.
-4. To read at leisure: **HOLD** on the radio, or open `xiao-dx.local/ft8.html` and use
+4. To read at leisure: **HOLD** on the radio, or open `wmsdr-dx.local/ft8.html` and use
    **Pause**, the filters and **Save log** (§7.4).
 
 ### Sending CW
@@ -1340,7 +1340,7 @@ persisted.
 1. uSDX on a dummy load or the antenna, **CW mode**, **VOX off**.
 2. MENU → **TX** → **TX ARM → ARMED**. Set CW WPM and SIDETONE. Close the menu — the TX lamp is
    outlined orange.
-3. Open `xiao-dx.local` → ☰ → **Transmit**. The badge shows **ARMED**.
+3. Open `wmsdr-dx.local` → ☰ → **Transmit**. The badge shows **ARMED**.
 4. Type — each character goes out as you type it. Macros for CQ / RST / 73. **STOP** or **Esc**
    stops at once.
 5. Done: **TX ARM → OFF**.

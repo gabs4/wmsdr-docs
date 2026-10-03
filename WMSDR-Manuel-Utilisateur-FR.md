@@ -733,7 +733,7 @@ résultat.
 
 ---
 
-### 7.4 Les pages web du compagnon (xiao-dx.local)
+### 7.4 Les pages web du compagnon (wmsdr-dx.local)
 
 Le poste n'a ni stockage ni clavier. Le XIAO compagnon — la carte qui apporte déjà l'heure UTC et
 les spots DX par ESP-NOW — reçoit les cartes WeFax et les décodages FT8, garde les plus récents en
@@ -741,7 +741,7 @@ mémoire et les sert à tout navigateur de votre réseau Wi-Fi ; il transmet aus
 tapée dans le navigateur. L'enregistrement se fait dans le navigateur, sur votre téléphone ou
 votre PC.
 
-Ouvrez **`http://xiao-dx.local/`** :
+Ouvrez **`http://wmsdr-dx.local/`** :
 
 - **Home** est un tableau de bord à tuiles actualisées — UTC, FT8 (décodages du dernier créneau),
   Images, cluster DX, signal Wi-Fi et durée de fonctionnement du compagnon. Touchez une tuile
@@ -752,7 +752,7 @@ Ouvrez **`http://xiao-dx.local/`** :
   mémorisé dans ce navigateur.
 - **Settings** regroupe les champs Wi-Fi, **CALLSIGN** et cluster DX. L'enregistrement redémarre
   le compagnon ; laisser le mot de passe vide conserve celui enregistré. En première
-  configuration (point d'accès `XIAO-DX-Config`, 192.168.4.1), le formulaire s'ouvre directement.
+  configuration (point d'accès `WMSDR-DX-Config`, 192.168.4.1), le formulaire s'ouvre directement.
 
 Les pages en direct affichent **LIVE** une fois connectées et se reconnectent d'elles-mêmes.
 
@@ -835,7 +835,7 @@ Manipulation en direct désactivée : tapez une ligne entière, puis **Entrée**
 - **FT8 affiche souvent `N decoded, M received` en rouge :** la liaison ESP-NOW perd des trames —
   rapprochez le compagnon ou améliorez son antenne.
 - **Le compagnon ne rejoint aucun réseau Wi-Fi** — il voit les réseaux lors d'un scan mais ne se
-  connecte à aucun, pas même à son propre point d'accès `XIAO-DX-Config` : vérifiez d'abord son
+  connecte à aucun, pas même à son propre point d'accès `WMSDR-DX-Config` : vérifiez d'abord son
   **antenne** (le petit connecteur à clipser se détache facilement), puis son alimentation USB.
   C'est arrivé sur le prototype ; une meilleure antenne a réglé le problème.
 - **Transmit affiche RADIO NOT HEARD** après un changement de canal Wi-Fi du routeur : le
@@ -1402,7 +1402,7 @@ ces valeurs sont mémorisées.
 2. Accordez **14,074 MHz USB** (ou une autre fréquence FT8, §7.3).
 3. Bouton **SSTV** → MODE **FT8**. Les décodages apparaissent après le premier créneau complet de
    15 s.
-4. Pour lire tranquillement : **HOLD** sur le poste, ou ouvrez `xiao-dx.local/ft8.html` et
+4. Pour lire tranquillement : **HOLD** sur le poste, ou ouvrez `wmsdr-dx.local/ft8.html` et
    utilisez **Pause**, les filtres et **Save log** (§7.4).
 
 ### Émettre en CW
@@ -1410,7 +1410,7 @@ ces valeurs sont mémorisées.
 1. uSDX sur charge fictive ou antenne, **mode CW**, **VOX désactivé**.
 2. MENU → **TX** → **TX ARM → ARMED**. Réglez CW WPM et SIDETONE. Fermez le menu — le voyant TX a
    un contour orange.
-3. Ouvrez `xiao-dx.local` → ☰ → **Transmit**. Le badge indique **ARMED**.
+3. Ouvrez `wmsdr-dx.local` → ☰ → **Transmit**. Le badge indique **ARMED**.
 4. Tapez — chaque caractère part au fil de la frappe. Macros pour CQ / RST / 73. **STOP** ou
    **Échap** arrête immédiatement.
 5. Terminé : **TX ARM → OFF**.
