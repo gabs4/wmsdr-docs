@@ -1,4 +1,4 @@
-# WMSDR
+# WMSDR (dependent panadapter)
 
 ![WMSDR front panel](images/wmsdr-front-rss.jpg)
 
