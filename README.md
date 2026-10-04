@@ -29,6 +29,7 @@ WMSDR enhances the rig you already own — it does not replace it.
 | Pages web compagnon : images, FT8, émission CW depuis le navigateur | Companion web pages: pictures, FT8, CW transmit from the browser |
 | S-mètre calibré, contrôle CAT, huit boutons configurables | Calibrated S-meter, CAT control, eight assignable knobs |
 | Poste de référence : uSDX triband (WB2CBA) | Reference rig: uSDX triband (WB2CBA) |
+| L'image ci-dessus illustre un cas d'utilisation possible | The image above depicts a possible use case |
 
 ---
 
