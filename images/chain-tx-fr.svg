@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 905" width="820" height="905">
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="ahx" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c46a00"/></marker>
+<marker id="ahc" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#666"/></marker>
+</defs>
+<style>
+text{font-family:"Segoe UI",Helvetica,Arial,sans-serif;fill:#222}
+.title{font-size:20px;font-weight:700;text-anchor:start}
+.sub{font-size:12px;fill:#555;text-anchor:start}
+.band{font-size:11px;font-weight:700;letter-spacing:.06em;fill:#555;text-anchor:start}
+.extl{font-size:11px;font-weight:700;letter-spacing:.06em;fill:#c46a00;text-anchor:start}
+.t1{font-size:13px;font-weight:700;text-anchor:middle}
+.t2{font-size:11px;fill:#444;text-anchor:middle}
+.t3{font-size:10.5px;fill:#555;text-anchor:middle;font-family:Consolas,"Courier New",monospace}
+.tapn{font-size:11px;font-weight:700;fill:#c46a00;text-anchor:middle}
+.lg{font-size:11.5px;text-anchor:start}
+.lgh{font-size:12px;font-weight:700;text-anchor:start}
+.note{font-size:11px;fill:#555;text-anchor:start}
+.tone{font-size:11px;font-style:italic;fill:#2e7d4f;text-anchor:start}
+.mono{fill:none;stroke:#222;stroke-width:1.4;marker-end:url(#ah)}
+.ext{fill:none;stroke:#c46a00;stroke-width:2.4;marker-end:url(#ahx)}
+.ctl{fill:none;stroke:#666;stroke-width:1.6;stroke-dasharray:6 4;marker-end:url(#ahc)}
+</style>
+<rect width="820" height="905" fill="#fff"/>
+<text class="title" x="28" y="34">WMSDR — chaîne d'émission phonie</text>
+<text class="sub" x="28" y="54">Cœur 0, processing_task : tant que le PTT du micro est pressé, cette chaîne remplace la réception</text>
+<text class="extl" x="28" y="90">DE VOUS</text>
+<text class="band" x="804" y="90" style="text-anchor:end">CHEMIN AUDIO  (chaque bloc)</text>
+<rect x="28" y="100" width="134" height="62" rx="7" fill="#fff1df" stroke="#c46a00" stroke-width="2.4"/>
+<text class="t1" x="95.0" y="120.5">Micro à main</text>
+<text class="t2" x="95.0" y="135.5">capsule électret</text>
+<text class="t2" x="95.0" y="150.5">+ bouton PTT</text>
+<rect x="186" y="100" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="120.5">WM8731 ADC</text>
+<text class="t2" x="253.0" y="135.5">entrée micro, MICBIAS</text>
+<text class="t3" x="253.0" y="150.5">MIC BOOST</text>
+<rect x="344" y="100" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="120.5">Micro → mono</text>
+<text class="t2" x="411.0" y="135.5">sur les deux voies</text>
+<text class="t2" x="411.0" y="150.5">+ garde bit MSB</text>
+<rect x="502" y="100" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="120.5">Décimation ÷D</text>
+<text class="t2" x="569.0" y="135.5">FIR</text>
+<text class="t3" x="569.0" y="150.5">→ 8 ou 12 kHz</text>
+<rect x="660" y="100" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="727.0" y="120.5">Gain micro</text>
+<text class="t2" x="727.0" y="135.5">+ passe-haut 250 Hz</text>
+<text class="t3" x="727.0" y="150.5">MIC GAIN</text>
+<rect x="28" y="210" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="95.0" y="230.5">Expandeur</text>
+<text class="t2" x="95.0" y="245.5">calme le bruit ambiant</text>
+<text class="t3" x="95.0" y="260.5">EXP · EXP THRESH</text>
+<rect x="186" y="210" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="230.5">Égaliseur TX</text>
+<text class="t2" x="253.0" y="245.5">300 · 1,8k · 2,4k Hz</text>
+<text class="t3" x="253.0" y="260.5">EQ · EQ LOW 300</text>
+<rect x="344" y="210" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="230.5">Rotateur de phase</text>
+<text class="t2" x="411.0" y="245.5">symétrise les crêtes</text>
+<text class="t3" x="411.0" y="260.5">ROTATOR</text>
+<rect x="502" y="210" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="230.5">Compresseur</text>
+<text class="t2" x="569.0" y="245.5">seuil, taux</text>
+<text class="t3" x="569.0" y="260.5">COMP · COMP RATIO</text>
+<rect x="660" y="210" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="727.0" y="230.5">Écrêteur type HF</text>
+<text class="t2" x="727.0" y="245.5">passe-bande complexe</text>
+<text class="t3" x="727.0" y="260.5">CLIP · CLIP LEVEL</text>
+<rect x="28" y="320" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="95.0" y="340.5">FIR passe-bande</text>
+<text class="t2" x="95.0" y="355.5">300 Hz–HICUT, 256 coef.</text>
+<text class="t3" x="95.0" y="370.5">TX HICUT</text>
+<rect x="186" y="320" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="340.5">Interpolation ×D</text>
+<text class="t2" x="253.0" y="355.5">FIR</text>
+<text class="t3" x="253.0" y="370.5">→ fréq. du codec</text>
+<rect x="344" y="320" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="340.5">Limiteur</text>
+<text class="t2" x="411.0" y="355.5">anticipatif, 2 ms</text>
+<text class="t2" x="411.0" y="370.5">plafond 0,85</text>
+<rect x="502" y="320" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="340.5">Niveau TX</text>
+<text class="t2" x="569.0" y="355.5">+ maintien, fondu</text>
+<text class="t3" x="569.0" y="370.5">TX LEVEL</text>
+<rect x="660" y="320" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="727.0" y="340.5">WM8731 DAC</text>
+<text class="t2" x="727.0" y="355.5">sortie casque</text>
+<text class="t3" x="727.0" y="370.5">TX OUTPUT  L+R / L ONLY</text>
+<rect x="186" y="426" width="134" height="56" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="443.5">Tonalité de test</text>
+<text class="t2" x="253.0" y="458.5">1 kHz ou 700 + 1900 Hz</text>
+<text class="t3" x="253.0" y="473.5">TX TONE</text>
+<text class="extl" x="650" y="461.0" style="text-anchor:end">VERS LE TRX →</text>
+<rect x="660" y="426" width="134" height="62" rx="7" fill="#fff1df" stroke="#c46a00" stroke-width="2.4"/>
+<text class="t1" x="727.0" y="446.5">Votre transceiver</text>
+<text class="t2" x="727.0" y="461.5">entrée micro (pointe)</text>
+<text class="t2" x="727.0" y="476.5">ex. (tr)uSDX</text>
+<path class="ext" d="M164,131.0 L186,131.0"/>
+<path class="mono" d="M320,131.0 L344,131.0"/>
+<path class="mono" d="M478,131.0 L502,131.0"/>
+<path class="mono" d="M636,131.0 L660,131.0"/>
+<path class="mono" d="M794,131.0 L808,131.0 L808,186.0 L12,186.0 L12,241.0 L28,241.0"/>
+<path class="mono" d="M162,241.0 L186,241.0"/>
+<path class="mono" d="M320,241.0 L344,241.0"/>
+<path class="mono" d="M478,241.0 L502,241.0"/>
+<path class="mono" d="M636,241.0 L660,241.0"/>
+<path class="mono" d="M794,241.0 L808,241.0 L808,296.0 L12,296.0 L12,351.0 L28,351.0"/>
+<path class="mono" d="M162,351.0 L186,351.0"/>
+<path class="mono" d="M320,351.0 L344,351.0"/>
+<path class="mono" d="M478,351.0 L502,351.0"/>
+<path class="mono" d="M636,351.0 L660,351.0"/>
+<path class="ext" d="M727.0,382 L727.0,426"/>
+<path class="mono" d="M186,454.0 L95.0,454.0 L95.0,382"/>
+<text class="tone" x="330" y="458.0">← remplace le micro si TX TONE ≠ MIC</text>
+<circle cx="727.0" cy="174" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="727.0" y="178">1</text>
+<circle cx="727.0" cy="284" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="727.0" y="288">2</text>
+<circle cx="174.0" cy="308" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="174.0" y="312">3</text>
+<circle cx="648.0" cy="308" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="648.0" y="312">4</text>
+<foreignObject x="28" y="492" width="780" height="40"><div xmlns="http://www.w3.org/1999/xhtml" style="font:11.5px 'Segoe UI',Helvetica,Arial,sans-serif;color:#555;line-height:1.45">Pendant l'émission, l'affichage et la chaîne audio de réception sont suspendus ; la zone du spectre affiche le moniteur TX ③.</div></foreignObject>
+<rect x="12" y="536" width="796" height="126" rx="10" fill="#fafafa" stroke="#d6d6d6" stroke-dasharray="5 4"/>
+<text class="band" x="28" y="552">COMMUTATION PTT (commande, pas d'audio)</text>
+<rect x="28" y="562" width="134" height="62" rx="7" fill="#fff1df" stroke="#c46a00" stroke-width="2.4"/>
+<text class="t1" x="95.0" y="590.0">PTT micro</text>
+<text class="t2" x="95.0" y="605.0">bouton sur le micro</text>
+<rect x="186" y="562" width="134" height="62" rx="7" fill="#f1f1f1" stroke="#666666" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="590.0">AW9523</text>
+<text class="t2" x="253.0" y="605.0">entrée P0_1</text>
+<rect x="344" y="562" width="134" height="62" rx="7" fill="#f1f1f1" stroke="#666666" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="582.5">Contrôle émission</text>
+<text class="t2" x="411.0" y="597.5">RX coupé, micro actif,</text>
+<text class="t2" x="411.0" y="612.5">DAC vidé</text>
+<rect x="502" y="562" width="134" height="62" rx="7" fill="#f1f1f1" stroke="#666666" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="582.5">AW9523</text>
+<text class="t2" x="569.0" y="597.5">sortie P0_0 → opto</text>
+<text class="t3" x="569.0" y="612.5">TX ARM</text>
+<rect x="660" y="562" width="134" height="62" rx="7" fill="#fff1df" stroke="#c46a00" stroke-width="2.4"/>
+<text class="t1" x="727.0" y="590.0">Votre transceiver</text>
+<text class="t2" x="727.0" y="605.0">PTT (anneau)</text>
+<path class="ctl" d="M162,593.0 L186,593.0"/>
+<path class="ctl" d="M320,593.0 L344,593.0"/>
+<path class="ctl" d="M478,593.0 L502,593.0"/>
+<path class="ctl" d="M636,593.0 L660,593.0"/>
+<text class="note" x="28" y="646">Au relâchement : fondu vers le silence, puis retour en réception. VOICE TIMEOUT coupe une émission bloquée.</text>
+<line x1="12" y1="702" x2="808" y2="702" stroke="#ddd"/>
+<text class="lgh" x="28" y="720">Légende</text>
+<rect x="28" y="734" width="22" height="13" rx="3" fill="#fff1df" stroke="#c46a00" stroke-width="1.2"/>
+<text class="lg" x="58" y="745">équipement externe</text>
+<rect x="28" y="754" width="22" height="13" rx="3" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.2"/>
+<text class="lg" x="58" y="765">fréquence du codec (8 · 32 · 48 · 96 kHz)</text>
+<rect x="28" y="774" width="22" height="13" rx="3" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.2"/>
+<text class="lg" x="58" y="785">fréquence audio (8 ou 12 kHz)</text>
+<rect x="28" y="794" width="22" height="13" rx="3" fill="#f1f1f1" stroke="#666666" stroke-width="1.2"/>
+<text class="lg" x="58" y="805">logique de commutation</text>
+<path class="mono" d="M28,821 L52,821"/>
+<text class="lg" x="58" y="825">audio (mono)</text>
+<path class="ctl" d="M28,841 L52,841"/>
+<text class="lg" x="58" y="845">PTT / commande</text>
+<text class="t3" x="28" y="865" style="text-anchor:start">ABC</text>
+<text class="lg" x="58" y="865">nom de ligne MENU (onglets TX et MIC)</text>
+<text class="lgh" x="300" y="720">Prélèvements (moniteur TX, lecture seule)</text>
+<circle cx="309" cy="741" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="745">1</text>
+<text class="lg" x="324" y="745">Barre MIC — niveau après MIC GAIN et le passe-haut 250 Hz</text>
+<circle cx="309" cy="762" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="766">2</text>
+<text class="lg" x="324" y="766">Barres EXP · GR · CLIP — ce que retire chaque étage de dynamique</text>
+<circle cx="309" cy="783" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="787">3</text>
+<text class="lg" x="324" y="787">Spectre audio TX avec le masque de bande passante</text>
+<circle cx="309" cy="804" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="808">4</text>
+<text class="lg" x="324" y="808">Barre OUT — exactement ce qui part vers le transceiver</text>
+<text class="note" x="28" y="891">D = 1 · 4 · 4 · 8 pour 8 · 32 · 48 · 96 kHz. La ligne PRESET (RAGCHEW / DX) règle d'un coup les lignes de l'onglet MIC.</text>
+</svg>

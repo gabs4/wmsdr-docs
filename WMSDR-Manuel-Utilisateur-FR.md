@@ -86,7 +86,7 @@ conviendra.
 
 La paire I/Q entre dans les entrées ligne du WM8731 sous forme d'un signal stéréo — I sur
 une voie, Q sur l'autre. Le choix de la bande latérale dépend donc du **sens** de cette
-paire, que le WMSDR détecte automatiquement (voir l'onglet STATUS, §8.12) plutôt que
+paire, que le WMSDR détecte automatiquement (voir l'onglet STATUS, §8.13) plutôt que
 d'exiger un câblage correct du premier coup.
 
 L'audio démodulé ressort par le CNA du WM8731.
@@ -364,6 +364,36 @@ la fréquence sous votre doigt, arrondie selon `TUNE SNAP`. La commande CAT n'es
 **qu'au relâchement**, jamais pendant le glissement. Si `FREQ TOUCH` est désactivé, le
 curseur suit toujours votre doigt (afin que le panneau n'ait pas l'air mort) mais aucune
 commande n'est envoyée.
+
+**Pendant une transmission en phonie**, la bande du spectre et la zone de la cascade deviennent
+ensemble le **moniteur TX**. Il montre ce qui part réellement vers le uSDX, après tout le
+traitement de la voix :
+
+![Moniteur TX pendant une transmission en phonie : panneau TX AUDIO et barres de niveau dans la bande du spectre, historique des niveaux en dessous](images/tx-monitor.jpg)
+
+*Figure 6.9 — Moniteur TX.*
+
+- **TX AUDIO** (panneau central) : le spectre de l'audio émis, de 0 à 3,5 kHz, gradué tous les
+  500 Hz, avec des lignes de niveau à −20 / −40 / −60 dBFS. La bande de **300 Hz à TX HICUT** est
+  ombrée comme le masque de bande passante en réception, avec la valeur des deux bords écrite en
+  haut — la voix doit rester à l'intérieur.
+- **Barres de gauche :** **MIC**, le niveau après MIC GAIN (rouge au-dessus de −3 dB) ; **OUT**, le
+  niveau envoyé au uSDX (rouge quand le limiteur de sortie tient le plafond).
+- **Barres de droite :** atténuation **EXP**, réduction de gain **COMP**, pourcentage **CLIP** —
+  les étages de l'onglet MIC dans l'ordre de la chaîne (§8.12). Un étage désactivé affiche **OFF**.
+
+- **Historique des niveaux** (zone de la cascade) : les 15 dernières secondes environ de
+  l'émission, les plus récentes à droite, de +10 à −60 dBFS. **OUT** est la surface verte pleine
+  et **MIC** la ligne jaune par-dessus ; la ligne rouge en pointillés est le plafond du limiteur de
+  sortie. Une voix bien traitée montre une ligne MIC agitée au-dessus d'une surface OUT dense et
+  régulière, qui touche le plafond sans s'y écraser. La bande du dessous montre **GR**, la
+  réduction de gain du compresseur (0 à 20 dB, barres pendantes), et des repères rouges **CLIP**
+  là où l'écrêteur a agi — on voit exactement sur quelles syllabes travaillent le compresseur et
+  l'écrêteur.
+
+Les barres maintiennent chaque crête puis redescendent d'environ 25 dB par seconde. Au relâchement
+du PTT, le spectre normal revient dès l'image suivante, et la cascade réapparaît avec son
+historique intact — elle est seulement recouverte pendant l'émission, jamais effacée.
 
 ### 6.10 Cascade (270–405)
 
@@ -851,8 +881,8 @@ Appuyez sur **MENU** dans la rangée basse. Le menu recouvre le spectre, la casc
 l'échelle de fréquence et la ligne du décodeur — les rangées de boutons restent actives,
 donc **MENU** referme le menu.
 
-**Douze onglets :** DISPLAY · SPECTRUM · TRACE · DSP · AUDIO · EQ · CW · CALIB · COLORS ·
-KNOBS · TX · STATUS
+**Treize onglets :** DISPLAY · SPECTRUM · TRACE · DSP · AUDIO · EQ · CW · CALIB · COLORS ·
+KNOBS · TX · MIC · STATUS
 
 **Comment les commandes fonctionnent**
 
@@ -866,7 +896,7 @@ KNOBS · TX · STATUS
 **Comment les réglages sont enregistrés**
 
 Tout sauf l'onglet STATUS est écrit en flash sous forme d'**un seul enregistrement
-versionné** (l'onglet TX a son propre enregistrement, et TX ARM n'est jamais enregistré), validé à la **fermeture** du menu — six modifications font une écriture, et
+versionné** (les onglets TX et MIC ont leur propre enregistrement, et TX ARM et TX TONE ne sont jamais enregistrés), validé à la **fermeture** du menu — six modifications font une écriture, et
 aucune modification ne fait aucune écriture. Les réglages changés hors du menu (boutons
 `WFG`, `SG`, `SAR`, `FILL`, `VOL`, appui sur SQL) sont rattrapés par une sauvegarde
 différée déclenchée 3 secondes après le dernier changement.
@@ -1267,20 +1297,39 @@ Réglages d'émission. **Rien n'émet tant que TX ARM est sur OFF**, quelle que 
 |---|---|---|
 | **TX ARM** | OFF / ARMED | Autorise l'émission. **Jamais enregistré — chaque démarrage se fait sur OFF.** Armé, le voyant TX a un contour orange (§6.2). Passer sur OFF coupe le PTT immédiatement et arrête une transmission CW. |
 | **CW WPM** | 5–60 | Vitesse du manipulateur (PARIS). Réglable aussi depuis la page Transmit du navigateur. |
-| **PTT TIMEOUT** | 5–120 s | Durée maximale d'un seul appui ; le PTT est alors forcé à l'arrêt (journalisé `PTT TIMEOUT`). En CW, chaque point et chaque trait est un appui distinct. |
+| **PTT TIMEOUT** | 5–240 s | Durée maximale d'un seul appui ; le PTT est alors forcé à l'arrêt (journalisé `PTT TIMEOUT`). En CW, chaque point et chaque trait est un appui distinct. Les transmissions en phonie utilisent VOICE TIMEOUT. |
+| **VOICE TIMEOUT** | 30–300 s, pas de 10 | Durée maximale d'une transmission en phonie. Atteinte, la transmission s'arrête entièrement — PTT coupé, micro coupé, retour de l'audio de réception (journalisé `VOICE TIMEOUT`). Garder le PTT micro enfoncé ne relance pas l'émission : relâchez-le et appuyez de nouveau. |
 | **CW WEIGHT** | 25–75 % | Longueur des signes par rapport à l'espace qui suit. 50 % est la norme ; plus lourd sonne plus plein et passe mieux sur un trajet faible ou avec du QSB, plus léger sonne plus net. La vitesse ne change pas. |
 | **DAH RATIO** | 2,5–4,5 | Longueur du trait en points (norme 3,0). |
 | **LETTER SPACE** | 3–6 unités | Espace entre lettres (norme 3). |
 | **WORD SPACE** | 5–14 unités | Espace entre mots (norme 7). |
 | **SIDETONE** | 0–10 | Niveau de la tonalité locale CW dans l'audio du WMSDR ; 0 = coupée. |
 | **SIDETONE PITCH** | 300–1200 Hz | Hauteur de la tonalité locale — réglage propre, indépendant de TONE dans l'onglet CW. |
+| **MIC BOOST** | OFF / +20 dB | Préampli micro du codec. Prend effet au prochain appui sur le PTT micro. |
+| **MIC GAIN** | 0–40 dB | Gain numérique après le convertisseur : le niveau qui entre dans le traitement de la voix. Surveillez les barres **MIC** et **COMP** (§6.9). |
+| **TX LEVEL** | −70–0 dB | Niveau envoyé à l'entrée micro du uSDX. Se règle avec la tonalité 1 kHz (§9, *Émettre en phonie*). |
+| **TX HICUT** | 2400–3000 Hz, pas de 100 | Haut de la bande audio émise — à accorder sur le filtre BLU du uSDX. Affiché comme bord droit du masque TX AUDIO. |
+| **TX TONE** | MIC / 1 kHz / 2-TONE | Tonalités de test à la place du micro, pour régler les niveaux. 2-TONE = 700 + 1900 Hz, au même niveau crête que la tonalité simple. Les tonalités ne passent pas par le traitement de l'onglet MIC. **Jamais enregistré — chaque démarrage émet le micro.** |
+| **TX OUTPUT** | L+R / L ONLY | Canaux de sortie qui portent l'audio d'émission. L ONLY laisse le canal droit muet en émission ; la branche uSDX doit alors être sur L (la pointe). |
 
-Tout sauf TX ARM est enregistré, dans un enregistrement à part (le RESET DEFAULTS du menu n'y
-touche pas).
+Tout sauf TX ARM et TX TONE est enregistré, dans un enregistrement à part (le RESET DEFAULTS du
+menu n'y touche pas).
 
 **PTT.** La ligne est la broche P0_0 de l'extenseur AW9523 sur la carte codec, reliée au PTT du
-uSDX : **HAUTE au repos, BASSE en émission**. Il n'y a **pas d'entrée PTT manuel** — ne branchez
-rien d'autre sur cette ligne, car la broche la pilote activement.
+uSDX : **HAUTE au repos, BASSE en émission**. Ne branchez rien d'autre sur cette ligne — la broche
+la pilote activement. Le **bouton PTT du micro** est une entrée distincte, la broche P0_1
+(contact à la masse, avec résistance de rappel sur la carte).
+
+**Émission en phonie.** Un appui sur le PTT micro coupe l'audio de réception, bascule l'entrée du
+codec sur le micro et active P0_0 dès que la sortie est silencieuse au jack (quelques dizaines de
+millisecondes) : aucun audio de réception n'atteint le uSDX. Au relâchement, l'audio s'éteint
+d'abord en fondu, puis le PTT est coupé. L'appui est refusé tant que TX ARM est sur OFF et ignoré
+pendant que le manipulateur CW émet. L'audio passe par MIC GAIN, un passe-haut à 250 Hz, le
+traitement de la voix de l'onglet MIC (§8.12), un passe-bande final et un limiteur de sortie, puis
+TX LEVEL. Le passe-bande limite l'audio émis à **300 Hz – TX HICUT** avec des flancs raides (−6 dB
+sur les deux lignes du masque, environ −74 dB à moins de 150 Hz au-delà) : rien de ce que
+produit le traitement ne sort de la bande. Pendant l'émission, la bande du spectre affiche le
+moniteur TX (§6.9).
 
 **Émission CW.** Le texte vient de la page Transmit du navigateur (§7.4). Le manipulateur cadence
 chaque élément sur une minuterie à la microseconde et pilote directement le PTT : les longueurs
@@ -1296,11 +1345,62 @@ WMSDR alimente aussi l'entrée micro du uSDX, mais en mode CW le uSDX ignore le 
 > micro : cette sortie transporte l'audio de réception entre les transmissions, et le VOX
 > déclencherait le poste dessus.
 
-### 8.12 Onglet STATUS
+### 8.12 Onglet MIC
+
+![Onglet MIC](images/menu-mic.jpg)
+
+*Figure 8.12 — Onglet MIC.*
+
+Le traitement de la voix pour l'émission en phonie. Les lignes suivent l'ordre de la chaîne — EXP,
+EQ, ROTATOR, COMP, CLIP — chaque étage avec son propre ON/OFF pour pouvoir le comparer en l'air.
+Toute modification s'applique en cours de transmission. Les barres du moniteur TX (§6.9) montrent
+ce que fait chaque étage.
+
+> **Un traitement haut de gamme sur un microcontrôleur.** On retrouve ici la même famille de
+> briques que dans les chaînes d'émission des transceivers SDR haut de gamme et de leurs logiciels
+> PC : expandeur, égaliseur multibande, rotateur de phase, compresseur, et un écrêteur d'enveloppe
+> qui filtre tant que le signal est encore complexe, pour que les produits d'écrêtage restent hors
+> de la bande passante — suivis d'un limiteur à anticipation et d'un affichage en direct du spectre
+> et des niveaux de ce qui part en l'air. Ici, tout tourne en temps réel sur le même ESP32-S3 qui
+> fait fonctionner le récepteur, et transforme un simple uSDX en un poste précédé d'un traitement
+> de la voix moderne.
+
+| Ligne | Plage | Rôle |
+|---|---|---|
+| **PRESET** | CUSTOM / RAGCHEW / DX | Règle toutes les lignes ci-dessous d'un coup (MIC GAIN, MIC BOOST, TX LEVEL et TX HICUT de l'onglet TX ne sont pas touchés). Modifier ensuite n'importe quelle ligne le remet sur CUSTOM. |
+| **EXP** | OFF / ON | Expandeur : une porte de bruit douce qui abaisse le bruit de la pièce entre les mots. |
+| **EXP THRESH** | −60 … −10 dB | Sous ce niveau, l'expandeur commence à atténuer. **Gardez-le sous COMP THRESH**, sinon la voix normale est coupée entre les syllabes. |
+| **EXP DEPTH** | −20 … 0 dB | L'atténuation maximale. Trop profonde, le fond s'allume et s'éteint à chaque pause, ce qui donne une voix hachée ; −6 dB sonnait juste en l'air. |
+| **EQ** | OFF / ON | Égaliseur d'émission, trois bandes. |
+| **EQ LOW 300** | −12 … +12 dB | Plateau grave à 300 Hz. Le couper retire le « boum » et garde la puissance pour les fréquences qui portent la parole. |
+| **EQ MID 1.8k** | −12 … +12 dB | Pic de présence à 1,8 kHz. |
+| **EQ HIGH 2.4k** | −12 … +12 dB | Plateau aigu à 2,4 kHz. |
+| **ROTATOR** | OFF / ON | Rotateur de phase : rend la forme d'onde de la voix plus symétrique, donc ses crêtes plus basses. Aucun changement audible seul ; il permet à l'écrêteur de travailler plus fort avant de devenir dur. |
+| **COMP** | OFF / ON | Compresseur : rapproche les passages faibles des passages forts. |
+| **COMP THRESH** | −40 … 0 dB | Niveau au-dessus duquel il compresse. |
+| **COMP RATIO** | 1,5 … 6,0 : 1, pas de 0,5 | Force de la compression au-dessus du seuil. |
+| **CLIP** | OFF / ON | Écrêteur : coupe les crêtes de l'enveloppe, puis filtre le résultat tant que le signal est encore complexe, pour que les produits d'écrêtage restent hors de la bande passante. La principale source de « punch ». |
+| **CLIP LEVEL** | 0 … 12 dB | À quel point le signal attaque l'écrêteur. Le niveau de sortie reste le même ; plus d'attaque = plus d'écrêtage. |
+
+Les préréglages :
+
+| | EXP | EQ grave / médium / aigu | ROTATOR | COMP | CLIP |
+|---|---|---|---|---|---|
+| **RAGCHEW** | ON, −22 / −6 dB | ON, −3 / +2 / 0 dB | ON | ON, −15 dB, 2 : 1 | OFF |
+| **DX** | ON, −22 / −6 dB | ON, −6 / +4 / +2 dB | ON | ON, −20 dB, 3 : 1 | ON, 6 dB |
+
+RAGCHEW garde une voix naturelle ; DX a plus de punch, moins de grave et plus d'écrêtage. En l'air
+avec un micro électret, **MIC BOOST +20 dB et MIC GAIN 20 dB** placent le compresseur dans sa
+plage de travail (barre COMP vers 6–12 dB sur une voix normale). Sans le rotateur, l'écrêtage
+devenait dur à CLIP LEVEL 6 ; avec lui, 6 restait propre.
+
+Enregistré avec l'enregistrement de l'onglet TX. Cet onglet n'a pas de bouton d'action.
+
+### 8.13 Onglet STATUS
 
 ![Onglet STATUS](images/menu-status.jpg)
 
-*Figure 8.12 — Onglet STATUS.*
+*Figure 8.13 — Onglet STATUS.*
 
 Diagnostics en lecture seule, rafraîchis deux fois par seconde.
 
@@ -1415,6 +1515,29 @@ ces valeurs sont mémorisées.
    **Échap** arrête immédiatement.
 5. Terminé : **TX ARM → OFF**.
 
+### Émettre en phonie (BLU)
+
+**Une fois, pour le câble.** La sortie audio du WMSDR va à l'entrée micro du uSDX (sur L, la
+pointe, si vous voulez TX OUTPUT = L ONLY). Le uSDX met environ **5 V de polarisation électret**
+sur la pointe de son entrée micro : placez un **condensateur de liaison** dans la branche uSDX
+(4,7 µF, **+ côté uSDX**). Un atténuateur résistif dans la même branche est recommandé (10 kΩ en
+série, 100 Ω à la masse côté uSDX, environ −40 dB) — la sortie du WMSDR est bien plus forte qu'un
+micro, et sans lui TX LEVEL doit rester tout en bas de sa plage.
+
+1. uSDX en **USB ou LSB**, **VOX désactivé**, sur charge fictive ; un second récepteur ou un
+   WebSDR à l'écoute.
+2. MENU → **TX** → **TX ARM → ARMED**, **TX TONE → 1 kHz**, TX LEVEL bas.
+3. Appuyez sur le PTT micro et montez **TX LEVEL** jusqu'à ce que la puissance du uSDX cesse
+   d'augmenter, puis redescendez d'environ 3 dB. Vérifiez **2-TONE** : deux raies propres sur le
+   second récepteur, rien de part et d'autre.
+4. **TX TONE → MIC.** MIC BOOST +20 dB, puis MIC GAIN de façon qu'une voix normale donne environ
+   6–12 dB sur la barre **COMP** (§6.9). Si COMP reste près de 0, montez MIC GAIN ; s'il dépasse
+   15, baissez-le.
+5. MENU → **MIC** → **PRESET → RAGCHEW** ou **DX**. Parlez en regardant le moniteur TX : la voix
+   dans la bande ombrée, **CLIP** surtout sous 20 %, **OUT** qui ne touche le rouge que sur les
+   syllabes les plus fortes.
+6. Terminé : **TX ARM → OFF**.
+
 ---
 
 ## 10. Annexes
@@ -1441,6 +1564,45 @@ Plans cotés : *à insérer.*
 
 Suggestion : récapitulatif du brochage, valeurs par défaut de chaque ligne de menu, et une
 carte de référence rapide d'une page pour les deux rangées de boutons.
+
+### Annexe D — Schémas fonctionnels du traitement du signal
+
+Le WMSDR ne touche jamais à la HF. Votre transceiver fait tout le travail HF et ramène la
+bande en bande de base I/Q. Le WMSDR numérise ces signaux I/Q dans le codec WM8731 ;
+tout ce qui suit est du logiciel tournant sur le cœur 0 de l'ESP32-S3, par blocs de 1024
+échantillons (21,3 ms à 48 kHz). Les deux figures ci-dessous montrent ce logiciel étage
+par étage, dans l'ordre où le firmware l'exécute.
+
+Comment les lire :
+
+- **Couleur = fréquence d'échantillonnage.** Les cases orange sont l'équipement externe,
+  les bleues tournent à la fréquence du codec (8, 32, 48 ou 96 kHz, selon le span I/Q),
+  les vertes à la fréquence audio (8 ou 12 kHz). Les violettes concernent l'affichage. La
+  décimation (÷D) et l'interpolation (×D) marquent les changements de fréquence.
+- **Flèches.** Une flèche épaisse transporte la paire I/Q, une flèche fine l'audio mono,
+  et une flèche en pointillés le PTT ou une commande, pas de l'audio.
+- **Le texte gris à chasse fixe** dans une case est la ligne de menu ou le bouton qui
+  commande cet étage (voir §7 et §8).
+- **Les cercles numérotés sont des prélèvements** : une copie en lecture seule du signal
+  à cet endroit, utilisée par un décodeur ou un indicateur. La chaîne elle-même n'est pas
+  modifiée.
+
+![Chaîne de réception](images/chain-rx-fr.svg)
+
+*Figure D.1 — Chaîne de réception. Le même bloc issu du codec alimente deux chemins : le
+chemin d'affichage (en haut, environ 31 images par seconde) et le chemin audio (chaque
+bloc). La FM quitte le chemin principal après le noise blanker et le rejoint au filtre de
+bande. Le squelch et MUTE sont placés après l'AGC à dessein, pour que l'AGC ne s'emballe
+jamais pendant que l'audio est coupé.*
+
+![Chaîne d'émission phonie](images/chain-tx-fr.svg)
+
+*Figure D.2 — Chaîne d'émission phonie. Tant que le PTT du micro est pressé, cette chaîne
+remplace la chaîne de réception sur le même cœur, et la zone du spectre affiche le
+moniteur TX (§6.9). La tonalité de test (TX TONE) remplace le micro et saute les étages de
+dynamique. La bande de commutation en bas montre comment le bouton PTT du micro fait
+passer le transceiver en émission ; au relâchement, l'audio s'éteint en fondu avant le
+retour en réception.*
 
 ---
 

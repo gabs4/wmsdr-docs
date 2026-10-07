@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 990" width="820" height="990">
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="ahx" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c46a00"/></marker>
+</defs>
+<style>
+text{font-family:"Segoe UI",Helvetica,Arial,sans-serif;fill:#222}
+.title{font-size:20px;font-weight:700;text-anchor:start}
+.sub{font-size:12px;fill:#555;text-anchor:start}
+.band{font-size:11px;font-weight:700;letter-spacing:.06em;fill:#555;text-anchor:start}
+.t1{font-size:13px;font-weight:700;text-anchor:middle}
+.t2{font-size:11px;fill:#444;text-anchor:middle}
+.t3{font-size:10.5px;fill:#555;text-anchor:middle;font-family:Consolas,"Courier New",monospace}
+.tapn{font-size:11px;font-weight:700;fill:#c46a00;text-anchor:middle}
+.lg{font-size:11.5px;text-anchor:start}
+.lgh{font-size:12px;font-weight:700;text-anchor:start}
+.note{font-size:11px;fill:#555;text-anchor:start}
+.fm{font-size:11px;font-style:italic;fill:#2e7d4f;text-anchor:start}
+.mono{fill:none;stroke:#222;stroke-width:1.4;marker-end:url(#ah)}
+.iq{fill:none;stroke:#222;stroke-width:3.2;marker-end:url(#ah)}
+.ext{fill:none;stroke:#c46a00;stroke-width:2;marker-end:url(#ahx)}
+.extl{font-size:11px;font-weight:700;letter-spacing:.06em;fill:#c46a00;text-anchor:start}
+.iqd{fill:none;stroke:#6a4c93;stroke-width:3.2;marker-end:url(#ah)}
+</style>
+<rect width="820" height="990" fill="#fff"/>
+<text class="title" x="28" y="34">WMSDR — chaîne de réception</text>
+<text class="sub" x="28" y="54">Cœur 0, processing_task : chaque bloc de 1024 échantillons (21,3 ms à 48 kHz) traverse les deux chemins</text>
+<rect x="170" y="70" width="638" height="140" rx="10" fill="#faf8fd" stroke="#d9cfe8" stroke-dasharray="5 4"/>
+<text class="band" x="186" y="88">CHEMIN AFFICHAGE  (≈31 images/s)</text>
+<rect x="186" y="114" width="134" height="54" rx="7" fill="#efe9f7" stroke="#6a4c93" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="130.5">Bloqueur DC</text>
+<text class="t2" x="253.0" y="145.5">+ équilibrage I/Q</text>
+<text class="t3" x="253.0" y="160.5">IQ BALANCE</text>
+<rect x="344" y="92" width="134" height="44" rx="7" fill="#efe9f7" stroke="#6a4c93" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="111.0">Fenêtre + FFT 1024</text>
+<text class="t3" x="411.0" y="126.0">FFT WINDOW</text>
+<rect x="344" y="142" width="134" height="44" rx="7" fill="#efe9f7" stroke="#6a4c93" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="153.5">Zoom-FFT</text>
+<text class="t2" x="411.0" y="168.5">spans étroits</text>
+<text class="t3" x="411.0" y="183.5">ZOOM</text>
+<rect x="502" y="114" width="134" height="54" rx="7" fill="#efe9f7" stroke="#6a4c93" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="138.0">Amplitude</text>
+<text class="t2" x="569.0" y="153.0">dB, lissage</text>
+<rect x="660" y="114" width="134" height="54" rx="7" fill="#efe9f7" stroke="#6a4c93" stroke-width="1.4"/>
+<text class="t1" x="727.0" y="130.5">Spectre · Waterfall</text>
+<text class="t2" x="727.0" y="145.5">S-mètre</text>
+<text class="t3" x="727.0" y="160.5">sprites cœur 1</text>
+<path class="iqd" d="M320,141.0 L332,141.0 L332,114.0 L344,114.0"/>
+<path class="iqd" d="M332,141.0 L332,164.0 L344,164.0"/>
+<path class="mono" d="M478,114.0 L490,114.0 L490,141.0 L502,141.0"/>
+<path class="mono" d="M478,164.0 L490,164.0 L490,141.0"/>
+<path class="mono" d="M636,141.0 L660,141.0"/>
+<text class="band" x="804" y="244" style="text-anchor:end">CHEMIN AUDIO  (chaque bloc)</text>
+<rect x="28" y="256" width="134" height="62" rx="7" fill="#fff1df" stroke="#c46a00" stroke-width="2.4"/>
+<text class="t1" x="95.0" y="276.5">Votre transceiver</text>
+<text class="t2" x="95.0" y="291.5">sorties I et Q</text>
+<text class="t2" x="95.0" y="306.5">ex. (tr)uSDX</text>
+<rect x="186" y="256" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="276.5">WM8731 ADC</text>
+<text class="t2" x="253.0" y="291.5">entrée ligne L/R ← I/Q</text>
+<text class="t2" x="253.0" y="306.5">→ flottant, ±1,0</text>
+<rect x="344" y="256" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="276.5">Atténuateur</text>
+<text class="t2" x="411.0" y="291.5">après l'ADC</text>
+<text class="t3" x="411.0" y="306.5">ATT · ATT TYPE</text>
+<rect x="502" y="256" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="284.0">Bloqueur DC</text>
+<text class="t2" x="569.0" y="299.0">I et Q</text>
+<rect x="660" y="256" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="727.0" y="276.5">Équilibrage I/Q</text>
+<text class="t2" x="727.0" y="291.5">réjection image</text>
+<text class="t3" x="727.0" y="306.5">IQ BALANCE</text>
+<text class="extl" x="28" y="246">DE VOTRE TRANSCEIVER</text>
+<path class="ext" d="M164,278.0 L186,278.0"/>
+<path class="ext" d="M164,296.0 L186,296.0"/>
+<text class="extl" x="169" y="274.0" style="font-size:9px">I</text>
+<text class="extl" x="168" y="309.0" style="font-size:9px">Q</text>
+<rect x="28" y="366" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="95.0" y="386.5">Noise blanker</text>
+<text class="t2" x="95.0" y="401.5">impulsions large bande</text>
+<text class="t3" x="95.0" y="416.5">NB · NB THRESHOLD</text>
+<rect x="186" y="366" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="386.5">Décimation ÷D</text>
+<text class="t2" x="253.0" y="401.5">FIR, I et Q</text>
+<text class="t3" x="253.0" y="416.5">→ 8 ou 12 kHz</text>
+<rect x="344" y="366" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="386.5">Démodulateur</text>
+<text class="t2" x="411.0" y="401.5">SSB/CW/DIGI : phasage</text>
+<text class="t3" x="411.0" y="416.5">AM : enveloppe</text>
+<rect x="502" y="366" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="386.5">Filtre de bande</text>
+<text class="t2" x="569.0" y="401.5">selon le mode</text>
+<text class="t3" x="569.0" y="416.5">FILTER</text>
+<rect x="660" y="366" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="727.0" y="386.5">Notch auto</text>
+<text class="t2" x="727.0" y="401.5">LMS, ôte les porteuses</text>
+<text class="t3" x="727.0" y="416.5">NOTCH · NOTCH LEVEL</text>
+<rect x="186" y="472" width="134" height="50" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="494.0">Discriminateur</text>
+<text class="t2" x="253.0" y="509.0">FM, fréq. du codec</text>
+<rect x="344" y="472" width="134" height="50" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="494.0">Décimation ÷D</text>
+<text class="t2" x="411.0" y="509.0">+ désaccentuation</text>
+<rect x="28" y="576" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="95.0" y="596.5">NR adaptative</text>
+<text class="t2" x="95.0" y="611.5">LMS, domaine temporel</text>
+<text class="t3" x="95.0" y="626.5">DNR · DNR LEVEL</text>
+<rect x="186" y="576" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="596.5">NR spectrale</text>
+<text class="t2" x="253.0" y="611.5">domaine fréquentiel</text>
+<text class="t3" x="253.0" y="626.5">FDNR · FDNR ALGO</text>
+<rect x="344" y="576" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="596.5">Égaliseur RX</text>
+<text class="t2" x="411.0" y="611.5">4 bandes 400–2400 Hz</text>
+<text class="t3" x="411.0" y="626.5">onglet EQ</text>
+<rect x="502" y="576" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="596.5">AGC</text>
+<text class="t2" x="569.0" y="611.5">cible, maintien, retour</text>
+<text class="t3" x="569.0" y="626.5">AGC · AGC TARGET</text>
+<rect x="660" y="576" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="727.0" y="604.0">Volume</text>
+<text class="t3" x="727.0" y="619.0">VOLUME</text>
+<rect x="28" y="686" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="95.0" y="706.5">Squelch</text>
+<text class="t2" x="95.0" y="721.5">commandé par le bruit</text>
+<text class="t3" x="95.0" y="736.5">SQL (FM)</text>
+<rect x="186" y="686" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="253.0" y="706.5">Muet</text>
+<text class="t2" x="253.0" y="721.5">rampe 10 ms</text>
+<text class="t3" x="253.0" y="736.5">MUTE</text>
+<rect x="344" y="686" width="134" height="62" rx="7" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.4"/>
+<text class="t1" x="411.0" y="706.5">Interpolation ×D</text>
+<text class="t2" x="411.0" y="721.5">FIR, mono</text>
+<text class="t3" x="411.0" y="736.5">→ fréq. du codec</text>
+<rect x="502" y="686" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="569.0" y="714.0">Limiteur crête</text>
+<text class="t2" x="569.0" y="729.0">−1 dBFS, 50 ms</text>
+<rect x="660" y="686" width="134" height="62" rx="7" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.4"/>
+<text class="t1" x="727.0" y="706.5">WM8731 DAC</text>
+<text class="t2" x="727.0" y="721.5">L = R</text>
+<text class="t3" x="727.0" y="736.5">casque · sortie ligne</text>
+<path class="iqd" d="M253.0,256 L253.0,168"/>
+<path class="iq" d="M320,287.0 L344,287.0"/>
+<path class="iq" d="M478,287.0 L502,287.0"/>
+<path class="iq" d="M636,287.0 L660,287.0"/>
+<path class="iq" d="M794,287.0 L808,287.0 L808,342.0 L12,342.0 L12,397.0 L28,397.0"/>
+<path class="iq" d="M162,397.0 L186,397.0"/>
+<path class="mono" d="M320,397.0 L344,397.0"/>
+<path class="mono" d="M478,397.0 L502,397.0"/>
+<path class="mono" d="M636,397.0 L660,397.0"/>
+<path class="mono" d="M794,397.0 L808,397.0 L808,548 L12,548 L12,607.0 L28,607.0"/>
+<path class="mono" d="M162,607.0 L186,607.0"/>
+<path class="mono" d="M320,607.0 L344,607.0"/>
+<path class="mono" d="M478,607.0 L502,607.0"/>
+<path class="mono" d="M636,607.0 L660,607.0"/>
+<path class="mono" d="M794,607.0 L808,607.0 L808,662.0 L12,662.0 L12,717.0 L28,717.0"/>
+<path class="mono" d="M162,717.0 L186,717.0"/>
+<path class="mono" d="M320,717.0 L344,717.0"/>
+<path class="mono" d="M478,717.0 L502,717.0"/>
+<path class="mono" d="M636,717.0 L660,717.0"/>
+<path class="iq" d="M174,397.0 L174,497 L186,497"/>
+<path class="mono" d="M320,497 L344,497"/>
+<path class="mono" d="M478,497 L569.0,497 L569.0,428"/>
+<text class="fm" x="32" y="501">FM seulement →</text>
+<circle cx="174.0" cy="354" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="174.0" y="358">1</text>
+<circle cx="490.0" cy="354" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="490.0" y="358">2</text>
+<circle cx="648.0" cy="354" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="648.0" y="358">3</text>
+<circle cx="332.0" cy="674" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="332.0" y="678">4</text>
+<circle cx="332.0" cy="460" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="332.0" y="464">5</text>
+<line x1="12" y1="768" x2="808" y2="768" stroke="#ddd"/>
+<text class="lgh" x="28" y="786">Légende</text>
+<rect x="28" y="800" width="22" height="13" rx="3" fill="#fff1df" stroke="#c46a00" stroke-width="1.2"/>
+<text class="lg" x="58" y="811">transceiver externe — I et Q analogiques</text>
+<rect x="28" y="820" width="22" height="13" rx="3" fill="#e4eefa" stroke="#2f5d8f" stroke-width="1.2"/>
+<text class="lg" x="58" y="831">fréquence du codec (8 · 32 · 48 · 96 kHz)</text>
+<rect x="28" y="840" width="22" height="13" rx="3" fill="#e5f3e8" stroke="#2e7d4f" stroke-width="1.2"/>
+<text class="lg" x="58" y="851">fréquence audio (8 ou 12 kHz)</text>
+<rect x="28" y="860" width="22" height="13" rx="3" fill="#efe9f7" stroke="#6a4c93" stroke-width="1.2"/>
+<text class="lg" x="58" y="871">affichage</text>
+<path class="iq" d="M28,887 L52,887"/>
+<text class="lg" x="58" y="891">paire I/Q (complexe)</text>
+<path class="mono" d="M28,907 L52,907"/>
+<text class="lg" x="58" y="911">audio (mono)</text>
+<text class="t3" x="39" y="931" style="text-anchor:start">ABC</text>
+<text class="lg" x="72" y="931">nom de MENU / BOUTON</text>
+<text class="lgh" x="300" y="786">Prélèvements (copies en lecture seule, la chaîne n'est pas modifiée)</text>
+<circle cx="309" cy="807" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="811">1</text>
+<text class="lg" x="324" y="811">Décodeur CW — voie I à la fréquence du codec, avant tout filtrage (CW / CWR)</text>
+<circle cx="309" cy="828" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="832">2</text>
+<text class="lg" x="324" y="832">Aide à l'accord CW — avant le filtre de bande (CW / CWR)</text>
+<circle cx="309" cy="849" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="853">3</text>
+<text class="lg" x="324" y="853">Fenêtre des décodeurs — SSTV · WeFax · RTTY · PSK31 · FT8</text>
+<circle cx="309" cy="870" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="874">4</text>
+<text class="lg" x="324" y="874">Vu-mètre AF — exactement ce qui arrive au DAC</text>
+<circle cx="309" cy="891" r="9" fill="#fff" stroke="#c46a00" stroke-width="1.6"/>
+<text class="tapn" x="309" y="895">5</text>
+<text class="lg" x="324" y="895">Mesure du bruit FM — commande le squelch (SQL)</text>
+<text class="note" x="28" y="956" style="font-weight:700;fill:#c46a00">WMSDR ne touche jamais à la HF : il traite la bande de base I/Q que votre transceiver produit déjà.</text>
+<text class="note" x="28" y="976">D = 1 · 4 · 4 · 8 pour 8 · 32 · 48 · 96 kHz. En émission phonie, les deux chemins sont suspendus au profit de la chaîne TX.</text>
+</svg>

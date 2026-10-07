@@ -82,7 +82,7 @@ both an I/Q pair and a TS-480-compatible CAT port. Anything that does the same w
 
 The I/Q pair enters the WM8731 line inputs as a stereo signal — I on one channel, Q on
 the other. Sideband selection therefore depends on the **sense** of that pair, which
-WMSDR detects automatically (see the STATUS tab, §8.12) rather than requiring you to
+WMSDR detects automatically (see the STATUS tab, §8.13) rather than requiring you to
 get the wiring right first time.
 
 Demodulated audio leaves through the WM8731 DAC.
@@ -347,6 +347,34 @@ to position the cursor, release — the rig is retuned to the frequency under yo
 rounded to `TUNE SNAP`. The CAT set is fired **only on release**, never while dragging.
 If `FREQ TOUCH` is off, the cursor still tracks your finger (so the panel does not read as
 dead) but no command is sent.
+
+**During a voice over** the spectrum strip and the waterfall area together become the **TX
+monitor**. It shows what actually goes to the uSDX, after the whole speech processor:
+
+![TX monitor during a voice over: TX AUDIO panel and level bars in the spectrum strip, level history below](images/tx-monitor.jpg)
+
+*Figure 6.9 — TX monitor.*
+
+- **TX AUDIO** (centre panel): the spectrum of the transmitted audio, 0 to 3.5 kHz, labelled every
+  500 Hz, with level lines at −20 / −40 / −60 dBFS. The band from **300 Hz to TX HICUT** is shaded
+  like the receive passband mask, with both edge values written at the top — speech should sit
+  inside it.
+- **Left bars:** **MIC**, the level after MIC GAIN (turns red above −3 dB); **OUT**, the level sent
+  to the uSDX (turns red when the output limiter holds the ceiling).
+- **Right bars:** **EXP** attenuation, **COMP** gain reduction, **CLIP** percentage — the MIC tab
+  stages in chain order (§8.12). A stage that is switched off shows **OFF**.
+
+- **Level history** (waterfall area): the last 15 seconds or so of the over, newest on the right,
+  from +10 down to −60 dBFS. **OUT** is the filled green area and **MIC** the yellow line over it;
+  the dashed red line is the output limiter's ceiling. A well-processed voice shows a jumpy MIC
+  line over a dense, even OUT area that touches the ceiling without flattening against it. The
+  strip underneath shows **GR**, the compressor's gain reduction (0 to 20 dB, bars hanging down),
+  and red **CLIP** ticks wherever the clipper acted — so you can see exactly which syllables the
+  compressor and the clipper are working on.
+
+The bars hold each peak and fall back at about 25 dB per second. When the PTT is released the
+normal spectrum returns on the next frame, and the waterfall comes back with its history intact —
+it is only covered during the over, never overwritten.
 
 ### 6.10 Waterfall (270–405)
 
@@ -806,7 +834,7 @@ With live keying off, type a whole line and press **Enter** or **Send**.
 Press **MENU** on the bottom row. The overlay covers the spectrum, waterfall, frequency
 scale and decoder line — the button rows stay live, so **MENU** closes it again.
 
-**Twelve tabs:** DISPLAY · SPECTRUM · TRACE · DSP · AUDIO · EQ · CW · CALIB · COLORS · KNOBS · TX · STATUS
+**Thirteen tabs:** DISPLAY · SPECTRUM · TRACE · DSP · AUDIO · EQ · CW · CALIB · COLORS · KNOBS · TX · MIC · STATUS
 
 **How the controls work**
 
@@ -819,8 +847,8 @@ scale and decoder line — the button rows stay live, so **MENU** closes it agai
 
 **How settings are saved**
 
-Everything except the STATUS tab is written to flash as **one versioned record** (the TX tab
-keeps its own record, and TX ARM is never saved), committed
+Everything except the STATUS tab is written to flash as **one versioned record** (the TX and MIC
+tabs keep their own record, and TX ARM and TX TONE are never saved), committed
 when you **close** the menu — six changes are one write, and no change is no write at all.
 Settings changed outside the menu (the `WFG`, `SG`, `SAR`, `FILL`, `VOL` buttons, the SQL
 tap) are caught by a deferred autosave that fires 3 seconds after the last change.
@@ -1204,19 +1232,38 @@ Transmit settings. **Nothing transmits while TX ARM is OFF**, whatever asks for 
 |---|---|---|
 | **TX ARM** | OFF / ARMED | Allows transmitting. **Never saved — every boot starts OFF.** While armed the TX lamp has an orange outline (§6.2). Switching OFF drops PTT at once and stops a CW over. |
 | **CW WPM** | 5–60 | Keyer speed (PARIS). Also set from the browser Transmit page. |
-| **PTT TIMEOUT** | 5–120 s | The longest a single key-down may last; PTT is then forced off (logged as `PTT TIMEOUT`). In CW every dit and dah is its own key-down. |
+| **PTT TIMEOUT** | 5–240 s | The longest a single key-down may last; PTT is then forced off (logged as `PTT TIMEOUT`). In CW every dit and dah is its own key-down. Voice overs use VOICE TIMEOUT instead. |
+| **VOICE TIMEOUT** | 30–300 s, step 10 | The longest voice over. When it is reached the over ends completely — PTT off, mic off, receive audio back (logged as `VOICE TIMEOUT`). Holding the mic PTT does not re-key: release it and press again. |
 | **CW WEIGHT** | 25–75 % | Mark length against the gap after it. 50 % is standard; heavier sounds fuller and carries better on a weak or fading path, lighter sounds crisper. Speed is unchanged. |
 | **DAH RATIO** | 2.5–4.5 | Dah length in dits (standard 3.0). |
 | **LETTER SPACE** | 3–6 units | Gap between letters (standard 3). |
 | **WORD SPACE** | 5–14 units | Gap between words (standard 7). |
 | **SIDETONE** | 0–10 | CW monitor level in the WMSDR audio; 0 = off. |
 | **SIDETONE PITCH** | 300–1200 Hz | Sidetone pitch — its own setting, independent of TONE on the CW tab. |
+| **MIC BOOST** | OFF / +20 dB | The codec's microphone preamp boost. Takes effect at the next mic PTT press. |
+| **MIC GAIN** | 0–40 dB | Digital gain after the converter: the level going into the speech processor. Watch the **MIC** and **COMP** bars (§6.9). |
+| **TX LEVEL** | −70–0 dB | The level sent to the uSDX mic input. Set it with the 1 kHz tone (§9, *Sending voice*). |
+| **TX HICUT** | 2400–3000 Hz, step 100 | Top of the transmitted audio band — match the uSDX SSB filter. Shown as the right edge of the TX AUDIO mask. |
+| **TX TONE** | MIC / 1 kHz / 2-TONE | Test tones in place of the mic, for setting levels. 2-TONE is 700 + 1900 Hz at the same peak level as the single tone. Tones bypass the MIC tab processing. **Never saved — every boot transmits the mic.** |
+| **TX OUTPUT** | L+R / L ONLY | Which output channels carry the TX audio. L ONLY keeps the right channel silent while transmitting; the uSDX branch must then be on L (the tip). |
 
-Everything except TX ARM is saved, in its own record (a menu RESET DEFAULTS does not touch it).
+Everything except TX ARM and TX TONE is saved, in its own record (a menu RESET DEFAULTS does not
+touch it).
 
 **PTT.** The line is the AW9523 expander pin P0_0 on the codec board, wired to the uSDX PTT: driven
-**HIGH at standby, LOW while transmitting**. There is **no hand PTT input** — connect nothing else to
-that line, because the pin actively drives it.
+**HIGH at standby, LOW while transmitting**. Connect nothing else to that line — the pin actively
+drives it. The **mic PTT button** is a separate input, pin P0_1 (switch to ground, with a pull-up
+on the board).
+
+**Voice transmit.** Pressing the mic PTT mutes receive audio, switches the codec input to the mic
+and keys P0_0 as soon as the output is silent at the jack (a few tens of milliseconds), so no
+receive audio reaches the uSDX. Releasing fades the audio to silence first, then unkeys. The press
+is refused while TX ARM is OFF and ignored while the CW keyer is sending. The audio passes through
+MIC GAIN, a 250 Hz high-pass, the speech processor on the MIC tab (§8.12), a final band-pass and
+an output limiter, then TX LEVEL. The band-pass limits the transmitted audio to **300 Hz – TX HICUT**
+with steep edges (−6 dB on the two mask lines, about −74 dB within 150 Hz outside them), so
+nothing the processor generates leaves the band. While transmitting, the spectrum strip shows the
+TX monitor (§6.9).
 
 **CW transmit.** Text comes from the browser Transmit page (§7.4). The keyer times each element on
 a microsecond timer and keys PTT directly, so element lengths stay exact to at least 45 WPM. The
@@ -1230,11 +1277,60 @@ mode the uSDX ignores the mic.
 > **uSDX VOX must be OFF** once WMSDR's audio output is patched to the uSDX mic: that output carries
 > receive audio between overs, and VOX would key the rig on it.
 
-### 8.12 STATUS tab
+### 8.12 MIC tab
+
+![MIC tab](images/menu-mic.jpg)
+
+*Figure 8.12 — MIC tab.*
+
+The speech processor for voice transmit. The rows are in chain order — EXP, EQ, ROTATOR, COMP,
+CLIP — each stage with its own ON/OFF so it can be compared on the air. Every change applies
+mid-over. The TX monitor bars (§6.9) show what each stage is doing.
+
+> **Top-tier processing on a microcontroller.** This is the same family of building blocks found
+> in the transmit chains of high-end SDR transceivers and their PC software: downward expander,
+> multi-band EQ, phase rotator, compressor, and an envelope clipper that filters while the signal
+> is still complex so the clipping products stay out of the passband — followed by a look-ahead
+> limiter and a live spectrum and level display of what goes on the air. Here it all runs in real
+> time on the same ESP32-S3 that runs the receiver, and turns a plain uSDX into a rig with a
+> modern speech processor in front of it.
+
+| Row | Range | What it does |
+|---|---|---|
+| **PRESET** | CUSTOM / RAGCHEW / DX | Sets every row below in one step (MIC GAIN, MIC BOOST, TX LEVEL and TX HICUT on the TX tab are left alone). Changing any row afterwards turns it back to CUSTOM. |
+| **EXP** | OFF / ON | Expander: a soft noise gate that lowers the room noise between words. |
+| **EXP THRESH** | −60 … −10 dB | Below this level the expander starts to attenuate. **Keep it below COMP THRESH**, or normal speech gets cut between syllables. |
+| **EXP DEPTH** | −20 … 0 dB | The most it attenuates. Too deep makes the background switch on and off with every pause, which sounds broken up; −6 dB sounded right on the air. |
+| **EQ** | OFF / ON | Transmit equaliser, three bands. |
+| **EQ LOW 300** | −12 … +12 dB | Low shelf at 300 Hz. Cutting it removes boom and saves power for the frequencies that carry speech. |
+| **EQ MID 1.8k** | −12 … +12 dB | Presence peak at 1.8 kHz. |
+| **EQ HIGH 2.4k** | −12 … +12 dB | High shelf at 2.4 kHz. |
+| **ROTATOR** | OFF / ON | Phase rotator: makes the voice waveform more symmetric so its peaks are lower. No audible change on its own; it lets the clipper work harder before it sounds harsh. |
+| **COMP** | OFF / ON | Compressor: brings quiet speech up towards the loud parts. |
+| **COMP THRESH** | −40 … 0 dB | Level above which it compresses. |
+| **COMP RATIO** | 1.5 … 6.0 : 1, step 0.5 | How hard it compresses above the threshold. |
+| **CLIP** | OFF / ON | Clipper: cuts the envelope peaks, then filters the result while the signal is still complex, so the clipping products stay out of the passband. The main source of talk power. |
+| **CLIP LEVEL** | 0 … 12 dB | How hard the signal is driven into the clipper. The output level stays the same; more drive means more clipping. |
+
+The presets:
+
+| | EXP | EQ low / mid / high | ROTATOR | COMP | CLIP |
+|---|---|---|---|---|---|
+| **RAGCHEW** | ON, −22 / −6 dB | ON, −3 / +2 / 0 dB | ON | ON, −15 dB, 2 : 1 | OFF |
+| **DX** | ON, −22 / −6 dB | ON, −6 / +4 / +2 dB | ON | ON, −20 dB, 3 : 1 | ON, 6 dB |
+
+RAGCHEW keeps the voice natural; DX is punchier, with less bass and more clipping. On the air with
+an electret mic, **MIC BOOST +20 dB and MIC GAIN 20 dB** put the compressor in its working range
+(COMP bar about 6–12 dB on normal speech). Without the rotator, clipping started to sound harsh
+at CLIP LEVEL 6; with it, 6 was clean.
+
+Saved with the TX tab's record. This tab has no action button.
+
+### 8.13 STATUS tab
 
 ![STATUS tab](images/menu-status.jpg)
 
-*Figure 8.12 — STATUS tab.*
+*Figure 8.13 — STATUS tab.*
 
 Read-only diagnostics, refreshed twice a second.
 
@@ -1345,6 +1441,25 @@ persisted.
    stops at once.
 5. Done: **TX ARM → OFF**.
 
+### Sending voice (SSB)
+
+**Once, for the cable.** The WMSDR audio output goes to the uSDX mic input (L, the tip, if you
+want TX OUTPUT = L ONLY). The uSDX puts about **5 V of electret bias** on its mic tip: fit a
+**DC-blocking capacitor** in the uSDX branch (4.7 µF, **+ towards the uSDX**). A resistive
+attenuator in the same branch is recommended (10 kΩ in series, 100 Ω to ground at the uSDX end,
+about −40 dB) — the WMSDR output is much hotter than a mic, and without it TX LEVEL has to sit near
+the bottom of its range.
+
+1. uSDX in **USB or LSB**, **VOX off**, into a dummy load; a second receiver or WebSDR listening.
+2. MENU → **TX** → **TX ARM → ARMED**, **TX TONE → 1 kHz**, TX LEVEL low.
+3. Press the mic PTT and raise **TX LEVEL** until the uSDX output power stops rising, then back off
+   about 3 dB. Check **2-TONE**: two clean lines on the second receiver, nothing either side.
+4. **TX TONE → MIC.** MIC BOOST +20 dB, then MIC GAIN so that normal speech gives about 6–12 dB on
+   the **COMP** bar (§6.9). If COMP stays near 0, raise MIC GAIN; if it sits above 15, lower it.
+5. MENU → **MIC** → **PRESET → RAGCHEW** or **DX**. Speak, and watch the TX monitor: speech inside
+   the shaded band, **CLIP** mostly under 20 %, **OUT** touching red only on the loudest syllables.
+6. Done: **TX ARM → OFF**.
+
 ---
 
 ## 10. Annexes
@@ -1371,6 +1486,42 @@ Dimensioned drawings: *to be inserted.*
 
 Suggested: pinout summary, default values for every menu row, and a one-page quick
 reference card for the two button rows.
+
+### Annex D — Signal processing block diagrams
+
+WMSDR never touches RF. Your rig does the RF work and brings the band down to an I/Q
+baseband. WMSDR digitises that I/Q in the WM8731 codec, and everything after that is
+software running on core 0 of the ESP32-S3, one block of 1024 samples at a time (21.3 ms
+at 48 kHz). The two figures below show that software stage by stage, in the order the
+firmware runs it.
+
+How to read them:
+
+- **Colour = sample rate.** Orange boxes are external equipment, blue boxes run at the
+  codec rate (8, 32, 48 or 96 kHz, set by the I/Q span), and green boxes run at the audio
+  rate (8 or 12 kHz). Purple boxes are the display. Decimation (÷D) and interpolation
+  (×D) are where the rate changes.
+- **Arrows.** A thick arrow carries the I/Q pair, a thin arrow carries mono audio, and a
+  dashed arrow is PTT or control, not audio.
+- **Grey monospace text** inside a box is the menu row or button that controls that stage
+  (see §7 and §8).
+- **Numbered circles are taps.** A tap is a read-only copy of the signal at that point,
+  used by a decoder or a meter. The chain itself is not changed by it.
+
+![Receive signal chain](images/chain-rx-en.svg)
+
+*Figure D.1 — Receive chain. The same block from the codec feeds two paths: the display
+path (top, about 31 frames per second) and the audio path (every block). FM leaves the
+main path after the noise blanker and joins it again at the bandwidth filter. Squelch and
+MUTE sit after the AGC on purpose, so the AGC never winds up while the audio is gated.*
+
+![Voice transmit chain](images/chain-tx-en.svg)
+
+*Figure D.2 — Voice transmit chain. While the mic PTT is held, this chain replaces the
+receive chain on the same core, and the spectrum area shows the TX monitor (§6.9). The
+test tone (TX TONE) replaces the microphone and skips the dynamics stages. The keying band
+at the bottom shows how the mic's PTT button keys the rig; on release the audio fades to
+silence before the rig is unkeyed.*
 
 ---
 
